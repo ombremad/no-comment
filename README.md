@@ -16,7 +16,7 @@ Currently, it does works on the following:
 No-comment can be imported into your modern browser of choice on any OS, as long as you have an "adblocking" extension installed (or a filtering system integrated in your browser). Most adblocking extensions use the same syntax for filters, so it should Just Work™ with most. I personally recommend using uBlock Origin.
 
 Just import the following URL into your list of custom filters:
-- https://github.com/ombremad/no-comment/blob/main/no-comment.txt
+- https://raw.githubusercontent.com/ombremad/no-comment/refs/heads/main/no-comment.txt
 
 ## Contributions
 You're absolutely welcome to submit new filter rules as pull requests. All rules are welcome as long as they do intend to block comments, no matter how (un)known the website is!
