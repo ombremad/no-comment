@@ -2,7 +2,9 @@
 A list of filters to block comments on various websites
 
 ## What is this?
-No-comment is a handmade list of filters that you can import into your browser with your favourite adblocker extension. It blocks the possibility to view comments by third-party users on websites, so that you can focus on what you really came for.
+*Everyone has an opinion. But do you really need to know?*
+
+No-comment is a handmade list of filters that you can import into your browser with your favourite adblocker extension. It blocks the possibility to view comments by third-party users, on websites where the primary intent is NOT to chat and to comment (ie. video sharing or news websites).
 
 ## Scope and limitations
 This list was initially created for personal use only. As such, for now, it doesn't block a lot, but it's supposed to grow and evolve as time goes on.
