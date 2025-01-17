@@ -1,0 +1,76 @@
+# No-comment 
+# A list of filters to block comments on various websites
+# By ombremad aka Anne Ferret / Fedi: https://mangezdespomm.es/@ombremad / Mail : anne@anneferret.eu
+# Contact, report issues, contribute: https://github.com/ombremad/no-comment
+
+
+
+# Comment hosting services
+
+||disqus.com
+## #disqus_thread
+
+
+ 
+# Social media
+
+youtube.com## #comment-teaser, #comments, #comments-button, #watch-while-engagement-panel
+
+
+
+# EN blocklist (English-speaking websites)
+
+
+
+# FR blocklist (French-speaking websites)
+
+01net.com## .spotim-light
+20minutes.fr## #mbrs-comments-container, #mbrs-comments-button-container
+30millionsdamis.fr## #comments
+actu.orange.fr## #graphcomment
+arretsurimages.net## .comments
+bienpublic.com## #PlugCommentsList2, .registerComments
+boursier.com## #comments-locator
+boursorama.com## .c-comment--full
+charentelibre.fr## .comments
+citoyens.com## .commentaires
+closermag.fr## #respond, .media-list
+clubic.com## #comments
+developpez.com## #comsActu, .directComActu
+euronews.com## #vuukle-comments-2576730, .c-article-partage-commentaire__links__comments
+factornews.com## #factorCommunityWrapper, #factorSectionCommunityAsync
+football.fr## #comments, .comment-btn
+francetvinfo.fr## #comments, .social-zone
+freenews.fr## .comments
+gamekult.com## .js-comment-sidebar, .gk__button__comment, .gk__button__comment--top
+generation-nt.com## .comments-zone, .new-comment-action
+i24news.tv## #article-comments, .jump-to-comments
+igen.fr,macg.co## .comments-block
+jeuxvideo.com## #bloc-commentaires
+journaldemontreal.com## .talk-wrapper
+journaldugeek.com## .spotim-light
+ladepeche.fr,midilibre.fr,lindependant.fr,centrepresseaveyron.fr## #commentaires, .article-full__footer
+lamontagne.fr## .shadow-card
+lapauseinfo.fr## .comments-area
+largus.fr## .form-comment
+lecourriercauchois.fr## #comments-bloc-2
+lefigaro.fr## .fig-comments
+lepoint.fr## #commentaires
+lequipe.fr## #ReactionSummary
+mac4ever.com## #comment, .comment
+madmoizelle.com## #comments, .comment-count
+maville.com## #bloc_saisie_assiste, .link-donner-avis, .icon-bulle
+mediapart.fr## .content-comments
+msn.com## #comments-count-button
+nicematin.com## #comments
+nouveautes-tele.com## #commentpost
+presse-citron.net## .spotim-light
+programme-tv.net## .newsArticle-comments
+reporterre.net## #zone_forum
+rtl.fr## .article-comments
+sortiraparis.com## #comments
+sports.fr## #respond, .comment-btn
+sudouest.fr## #comments-block
+universfreebox.com## #commentaires-freezone, #commentaires-form, #go-to-comments
+valeursactuelles.com## #node-article-comment, .commentsSectionAnchor
+varmatin.fr## #comments, .button--read-comment
