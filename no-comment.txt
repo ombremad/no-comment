@@ -20,6 +20,21 @@ youtube.com## #comment-teaser, #comments, #comments-button, #watch-while-engagem
 
 # EN blocklist (English-speaking websites)
 
+9to5google.com,9to5mac.com## #comments
+arstechnica.com## .comments-wrapper, .view-comments
+dailymail.co.uk## #comments-overlay, .comments-count
+engadget.com## #module-spotIm, .caas-comment
+forbes.com## .openWeb-wrapper, .standard-commenting
+www.ign.com## #comments-section
+nypost.com## .membership-comments-module, .social-icons__icon--comments
+nytimes.com## #comments-speech-bubble-bigBottom, #comments-speech-bubble-header, #comments-speech-bubble-footer
+pcmag.com## .spcv_mainContainer
+people.com## #comments, #people-comments_1-0, .mntl-comment-counter
+techcrunch.com## #comments
+theguardian.com## #comments
+theregister.com## #forums_page, .comment_count, .comment
+theverge.com## #comments-drawer, .duet--article--comments-link
+
 
 
 # FR blocklist (French-speaking websites)
@@ -28,7 +43,9 @@ youtube.com## #comment-teaser, #comments, #comments-button, #watch-while-engagem
 20minutes.fr## #mbrs-comments-container, #mbrs-comments-button-container
 30millionsdamis.fr## #comments
 actu.orange.fr## #graphcomment
+allocine.fr## .review-card
 arretsurimages.net## .comments
+betaseries.com## #comments, #Comments
 bienpublic.com## #PlugCommentsList2, .registerComments
 boursier.com## #comments-locator
 boursorama.com## .c-comment--full
@@ -46,6 +63,7 @@ gamekult.com## .js-comment-sidebar, .gk__button__comment, .gk__button__comment--
 generation-nt.com## .comments-zone, .new-comment-action
 i24news.tv## #article-comments, .jump-to-comments
 igen.fr,macg.co## .comments-block
+fr.ign.com## #disqus, .comments
 jeuxvideo.com## #bloc-commentaires
 journaldemontreal.com## .talk-wrapper
 journaldugeek.com## .spotim-light
@@ -62,6 +80,7 @@ madmoizelle.com## #comments, .comment-count
 maville.com## #bloc_saisie_assiste, .link-donner-avis, .icon-bulle
 mediapart.fr## .content-comments
 msn.com## #comments-count-button
+next.ink## #comments, .share-comment-action, .next-new-comment
 nicematin.com## #comments
 nouveautes-tele.com## #commentpost
 presse-citron.net## .spotim-light
