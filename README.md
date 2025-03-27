@@ -15,7 +15,7 @@ Currently, it does works on the following:
 
 ## How to use
 
-No-comment can be imported into your modern browser of choice on any OS, as long as you have an "adblocking" extension installed (or a filtering system integrated in your browser). Most adblocking extensions use the same syntax for filters, so it should Just Work™ with most. I personally recommend usng [uBlock Origin](https://ublockorigin.com).
+No-comment can be imported into your modern browser of choice on any OS, as long as you have an "adblocking" extension installed (or a filtering system integrated in your browser). Most adblocking extensions use the same syntax for filters, so it should Just Work™ with most. I personally recommend using [uBlock Origin](https://ublockorigin.com).
 
 Just import the following URL into your list of custom filters:
 - https://raw.githubusercontent.com/ombremad/no-comment/refs/heads/main/no-comment.txt
