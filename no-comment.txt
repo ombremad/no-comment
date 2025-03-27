@@ -1,44 +1,43 @@
-# No-comment 
-# A list of filters to block comments on various websites
-# By ombremad aka Anne Ferret / Fedi: https://mangezdespomm.es/@ombremad / Mail : anne@anneferret.eu
-# Contact, report issues, contribute: https://github.com/ombremad/no-comment
-
-
-
-# Comment hosting services
-
+! No-comment 
+! A list of filters to block comments on various EN/FR websites
+!
+! By ombremad aka Anne Ferret
+! Fedi: https://mangezdespomm.es/@ombremad
+! Mail : anne@anneferret.eu
+!
+! Contact, report issues, contribute: https://github.com/ombremad/no-comment
+!
+!
+!
+! -----------------Comment hosting services-----------------!
 ||disqus.com
 ## #disqus_thread
-
-
- 
-# Social media
-
+!
+! -----------------------Social media-----------------------!
 youtube.com## #comment-teaser, #comments, #comments-button, #watch-while-engagement-panel
-
-
-
-# EN blocklist (English-speaking websites)
-
+!
+! -----------------------EN blocklist-----------------------!
 9to5google.com,9to5mac.com## #comments
 arstechnica.com## .comments-wrapper, .view-comments
 dailymail.co.uk## #comments-overlay, .comments-count
 engadget.com## #module-spotIm, .caas-comment
+deadline.com## #comments-title, #comments-loaded
 forbes.com## .openWeb-wrapper, .standard-commenting
+gizmodo.com## .spotim-light
 www.ign.com## #comments-section
 nypost.com## .membership-comments-module, .social-icons__icon--comments
 nytimes.com## #comments-speech-bubble-bigBottom, #comments-speech-bubble-header, #comments-speech-bubble-footer
 pcmag.com## .spcv_mainContainer
 people.com## #comments, #people-comments_1-0, .mntl-comment-counter
+screenrant.com## #footer-threads, .disqus-load-btn, .w-display-card-extra
 techcrunch.com## #comments
 theguardian.com## #comments
 theregister.com## #forums_page, .comment_count, .comment
 theverge.com## #comments-drawer, .duet--article--comments-link
-
-
-
-# FR blocklist (French-speaking websites)
-
+variety.com## #comments-loaded, .o-comments-link
+wired.com## .CommentingMainContent
+!
+! -----------------------FR blocklist-----------------------!
 01net.com## .spotim-light
 20minutes.fr## #mbrs-comments-container, #mbrs-comments-button-container
 30millionsdamis.fr## #comments
