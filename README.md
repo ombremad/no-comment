@@ -10,8 +10,8 @@ No-comment is a handmade list of filters that you can import into your browser w
 This list was initially created for personal use only. As such, for now, it doesn't block a lot, but it's supposed to grow and evolve as time goes on.
 Currently, it does works on the following:
 - YouTube
-- all websites using the Disqus comment system
-- various popular french and french-speaking news websites
+- websites using the Disqus comment system
+- various popular english- and french-speaking news outlets
 
 ## How to use
 
