@@ -20,5 +20,9 @@ No-comment can be imported into your modern browser of choice on any OS, as long
 Just import the following URL into your list of custom filters:
 - https://raw.githubusercontent.com/ombremad/no-comment/refs/heads/main/no-comment.txt
 
+## License
+
+This project is released under the [Unlicense license](LICENSE).
+
 ## Contributions
 You're absolutely welcome to submit new filter rules as pull requests. All rules are welcome as long as they do intend to block comments, no matter how (un)known the website is!
