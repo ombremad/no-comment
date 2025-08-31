@@ -1,11 +1,12 @@
 ! No-comment 
 ! A list of filters to block comments on various EN/FR websites
+! Last update: 2025.08.31
 !
 ! By ombremad aka Anne Ferret
 ! Fedi: https://mangezdespomm.es/@ombremad
 ! Mail : anne@anneferret.eu
 !
-! Contact, report issues, contribute: https://github.com/ombremad/no-comment
+! License, contact, report issues, contribute: https://github.com/ombremad/no-comment
 !
 !
 !
@@ -17,25 +18,25 @@
 youtube.com## #comment-teaser, #comments, #comments-button, #watch-while-engagement-panel
 !
 ! -----------------------EN blocklist-----------------------!
-9to5google.com,9to5mac.com## #comments
+9to5google.com,9to5mac.com## #comments, #single-comments-link
 arstechnica.com## .comments-wrapper, .view-comments
-dailymail.co.uk## #comments-overlay, .comments-count
+dailymail.co.uk## #reader-comments, #addCommentButton, .comments-count
+deadline.com## #comments, #comments-title
 engadget.com## #module-spotIm, .caas-comment
-deadline.com## #comments-title, #comments-loaded
 forbes.com## .openWeb-wrapper, .standard-commenting
 gizmodo.com## .spotim-light
 www.ign.com## #comments-section
-nypost.com## .membership-comments-module, .social-icons__icon--comments
+nypost.com,pagesix.com## #nypost-openweb-conversation, .comments-inline-cta, .social-icons__icon--comments
 nytimes.com## #comments-speech-bubble-bigBottom, #comments-speech-bubble-header, #comments-speech-bubble-footer
 pcmag.com## .spcv_mainContainer
-people.com## #comments, #people-comments_1-0, .mntl-comment-counter
+people.com## #comments, #people-comments_1-0, #comment-counter--mini_1-0, #click-to-comment_1-0, .mntl-comment-counter
 screenrant.com## #footer-threads, .disqus-load-btn, .w-display-card-extra
 techcrunch.com## #comments
 theguardian.com## #comments
 theregister.com## #forums_page, .comment_count, .comment
 theverge.com## #comments-drawer, .duet--article--comments-link
 variety.com## #comments-loaded, .o-comments-link
-wired.com## .CommentingMainContent
+wired.com## #comments, .CommentingMainContent
 !
 ! -----------------------FR blocklist-----------------------!
 01net.com## .spotim-light
