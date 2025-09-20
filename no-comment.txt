@@ -1,6 +1,6 @@
 ! No-comment 
 ! A list of filters to block comments on various EN/FR websites
-! Last update: 2025.08.31
+! Last update: 2025.09.20
 !
 ! By ombremad aka Anne Ferret
 ! Fedi: https://mangezdespomm.es/@ombremad
@@ -18,7 +18,7 @@
 youtube.com## #comment-teaser, #comments, #comments-button, #watch-while-engagement-panel
 !
 ! -----------------------EN blocklist-----------------------!
-9to5google.com,9to5mac.com## #comments, #single-comments-link
+9to5google.com,9to5mac.com,connectthewatts.com,dronedj.com,electrek.co,spaceexplored.com## #comments, #single-comments-link, .meta__comment-count
 arstechnica.com## .comments-wrapper, .view-comments
 dailymail.co.uk## #reader-comments, #addCommentButton, .comments-count
 deadline.com## #comments, #comments-title
@@ -57,32 +57,37 @@ developpez.com## #comsActu, .directComActu
 euronews.com## #vuukle-comments-2576730, .c-article-partage-commentaire__links__comments
 factornews.com## #factorCommunityWrapper, #factorSectionCommunityAsync
 football.fr## #comments, .comment-btn
-francetvinfo.fr## #comments, .social-zone
+franceinfo.fr## #comments-embed, .social-zone__comment-btn
 freenews.fr## .comments
 gamekult.com## .js-comment-sidebar, .gk__button__comment, .gk__button__comment--top
 generation-nt.com## .comments-zone, .new-comment-action
 i24news.tv## #article-comments, .jump-to-comments
 igen.fr,macg.co## .comments-block
 fr.ign.com## #disqus, .comments
+jeanmarcmorandini.com## #comments
 jeuxvideo.com## #bloc-commentaires
 journaldemontreal.com## .talk-wrapper
 journaldugeek.com## .spotim-light
 ladepeche.fr,midilibre.fr,lindependant.fr,centrepresseaveyron.fr## #commentaires, .article-full__footer
 lamontagne.fr## .shadow-card
 lapauseinfo.fr## .comments-area
+laprovence.com## .logoraContainer
 largus.fr## .form-comment
 lecourriercauchois.fr## #comments-bloc-2
 lefigaro.fr## .fig-comments
 lepoint.fr## #commentaires
 lequipe.fr## #ReactionSummary
+lesnumeriques.com## .js-comments, .js-forum-nb-comments
 mac4ever.com## #comment, .comment
 madmoizelle.com## #comments, .comment-count
+marsactu.fr## #comments, .comments
 maville.com## #bloc_saisie_assiste, .link-donner-avis, .icon-bulle
 mediapart.fr## .content-comments
 msn.com## #comments-count-button
 next.ink## #comments, .share-comment-action, .next-new-comment
 nicematin.com## #comments
 nouveautes-tele.com## #commentpost
+phonandroid.com## #comments, .comments
 presse-citron.net## .spotim-light
 programme-tv.net## .newsArticle-comments
 reporterre.net## #zone_forum
