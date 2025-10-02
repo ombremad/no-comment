@@ -1,15 +1,13 @@
 ! No-comment 
 ! A list of filters to block comments on various EN/FR websites
-! Last update: 2025.09.20
-!
+! Last update: 2025.10.02
+
 ! By ombremad aka Anne Ferret
 ! Fedi: https://mangezdespomm.es/@ombremad
 ! Mail : anne@anneferret.eu
-!
+
 ! License, contact, report issues, contribute: https://github.com/ombremad/no-comment
-!
-!
-!
+
 ! -----------------Comment hosting services-----------------!
 ||disqus.com
 ## #disqus_thread
@@ -23,6 +21,7 @@ arstechnica.com## .comments-wrapper, .view-comments
 dailymail.co.uk## #reader-comments, #addCommentButton, .comments-count
 deadline.com## #comments, #comments-title
 engadget.com## #module-spotIm, .caas-comment
+espn.com## .content-reactions_count-wrapper
 forbes.com## .openWeb-wrapper, .standard-commenting
 gizmodo.com## .spotim-light
 www.ign.com## #comments-section
@@ -35,6 +34,7 @@ techcrunch.com## #comments
 theguardian.com## #comments
 theregister.com## #forums_page, .comment_count, .comment
 theverge.com## #comments-drawer, .duet--article--comments-link
+timesofisrael.com## .o-w-comments-wrap, .social-comments, .before-conversation
 variety.com## #comments-loaded, .o-comments-link
 wired.com## #comments, .CommentingMainContent
 !
@@ -75,6 +75,7 @@ laprovence.com## .logoraContainer
 largus.fr## .form-comment
 lecourriercauchois.fr## #comments-bloc-2
 lefigaro.fr## .fig-comments
+leparisien.fr## #comments-section, .lp-sidebar
 lepoint.fr## #commentaires
 lequipe.fr## #ReactionSummary
 lesnumeriques.com## .js-comments, .js-forum-nb-comments
