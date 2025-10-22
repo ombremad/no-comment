@@ -1,19 +1,19 @@
 ! No-comment 
 ! A list of filters to block comments on various EN/FR websites
-! Last update: 2025.10.02
-
+! Last update: 2025.10.22
+!
 ! By ombremad aka Anne Ferret
 ! Fedi: https://mangezdespomm.es/@ombremad
 ! Mail : anne@anneferret.eu
-
+!
 ! License, contact, report issues, contribute: https://github.com/ombremad/no-comment
-
+!
 ! -----------------Comment hosting services-----------------!
 ||disqus.com
 ## #disqus_thread
 !
 ! -----------------------Social media-----------------------!
-youtube.com## #comment-teaser, #comments, #comments-button, #watch-while-engagement-panel
+youtube.com## #comment-teaser, #comments, #comments-button, #watch-while-engagement-panel, #panels-full-bleed-container
 !
 ! -----------------------EN blocklist-----------------------!
 9to5google.com,9to5mac.com,connectthewatts.com,dronedj.com,electrek.co,spaceexplored.com## #comments, #single-comments-link, .meta__comment-count
@@ -54,10 +54,11 @@ citoyens.com## .commentaires
 closermag.fr## #respond, .media-list
 clubic.com## #comments
 developpez.com## #comsActu, .directComActu
+ecranlarge.com## #votre-avis, a[href*="#comments"]
 euronews.com## #vuukle-comments-2576730, .c-article-partage-commentaire__links__comments
 factornews.com## #factorCommunityWrapper, #factorSectionCommunityAsync
 football.fr## #comments, .comment-btn
-franceinfo.fr## #comments-embed, .social-zone__comment-btn
+franceinfo.fr## .comments-embed, .comments-embed__button
 freenews.fr## .comments
 gamekult.com## .js-comment-sidebar, .gk__button__comment, .gk__button__comment--top
 generation-nt.com## .comments-zone, .new-comment-action
