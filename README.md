@@ -1,6 +1,9 @@
 # No-comment
 A list of filters to block comments on various websites
 
+![No-comment header](https://github.com/user-attachments/assets/3e33d819-9123-4d05-8987-784f5606b983)
+
+
 ## What is this?
 *Everyone has an opinion. But do you really need to know?*
 
