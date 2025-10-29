@@ -1,6 +1,6 @@
 ! No-comment 
 ! A list of filters to block comments on various EN/FR websites
-! Last update: 2025.10.22
+! Last update: 2025.10.29
 !
 ! By ombremad aka Anne Ferret
 ! Fedi: https://mangezdespomm.es/@ombremad
@@ -22,13 +22,20 @@ dailymail.co.uk## #reader-comments, #addCommentButton, .comments-count
 deadline.com## #comments, #comments-title
 engadget.com## #module-spotIm, .caas-comment
 espn.com## .content-reactions_count-wrapper
+eurogamer.net,rockpapershotgun.com,vg247.com## .comments, .load-comments
 forbes.com## .openWeb-wrapper, .standard-commenting
+gameinformer.com## #comments
+gamespot.com## .comments, .article-comments, .js-seamless-content__goto-comments
 gizmodo.com## .spotim-light
 www.ign.com## #comments-section
+kotaku.com## .spcv_mainContainer, a[href$="#comments"]
+macrumors.com## #comments, a[href^="https://forums.macrumors.com/threads/"]
 nypost.com,pagesix.com## #nypost-openweb-conversation, .comments-inline-cta, .social-icons__icon--comments
 nytimes.com## #comments-speech-bubble-bigBottom, #comments-speech-bubble-header, #comments-speech-bubble-footer
+pcgamer.com## #viafoura-comment-wrapper, .viafoura-comment-count
 pcmag.com## .spcv_mainContainer
 people.com## #comments, #people-comments_1-0, #comment-counter--mini_1-0, #click-to-comment_1-0, .mntl-comment-counter
+polygon.com## #footer-threads, .thread-option, .total-info-number
 screenrant.com## #footer-threads, .disqus-load-btn, .w-display-card-extra
 techcrunch.com## #comments
 theguardian.com## #comments
@@ -54,7 +61,7 @@ citoyens.com## .commentaires
 closermag.fr## #respond, .media-list
 clubic.com## #comments
 developpez.com## #comsActu, .directComActu
-ecranlarge.com## #votre-avis, a[href*="#comments"]
+ecranlarge.com## #votre-avis, a[href="#comments"]
 euronews.com## #vuukle-comments-2576730, .c-article-partage-commentaire__links__comments
 factornews.com## #factorCommunityWrapper, #factorSectionCommunityAsync
 football.fr## #comments, .comment-btn
