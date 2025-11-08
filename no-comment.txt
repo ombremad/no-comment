@@ -1,7 +1,7 @@
 ! Title: No-comment
 ! A list of filters to block comments on various EN/FR websites
 ! Homepage: https://github.com/ombremad/no-comment
-! Version: 21
+! Version: 22
 !
 ! By ombremad aka Anne Ferret
 ! Fedi: https://mangezdespomm.es/@ombremad
@@ -12,7 +12,7 @@
 ## #disqus_thread
 !
 ! -----------------------Social media-----------------------!
-youtube.com## #comment-teaser, #comments, #comments-button, #watch-while-engagement-panel, #panels-full-bleed-container
+youtube.com## #comment-teaser, #comments, #comments-button, #watch-while-engagement-panel, #panels-full-bleed-container, yt-player-quick-action-buttons > toggle-button-view-model:nth-child(3), #shorts-panel-container, reel-action-bar-view-model > button-view-model:first-of-type
 !
 ! -----------------------EN blocklist-----------------------!
 9to5google.com,9to5mac.com,connectthewatts.com,dronedj.com,electrek.co,spaceexplored.com## #comments, #single-comments-link, .meta__comment-count
