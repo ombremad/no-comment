@@ -228,7 +228,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: v${{ steps.current_version.outputs.version }}
-          name: "Version ${{ steps.current_version.outputs.version }}"
+          name: "No-comment v${{ steps.current_version.outputs.version }}"
           body_path: release_notes.md
           files: no-comment.txt
           draft: true
