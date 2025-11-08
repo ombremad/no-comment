@@ -38,9 +38,19 @@ jobs:
       - name: Check if version changed
         id: version_check
         run: |
-          if [ "${{ steps.current_version.outputs.version }}" != "${{ steps.previous_version.outputs.prev_version }}" ]; then
+          PREV_VER="${{ steps.previous_version.outputs.prev_version }}"
+          CURR_VER="${{ steps.current_version.outputs.version }}"
+          
+          # Skip if this is the first commit (no previous version)
+          if [ -z "$PREV_VER" ]; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "First commit detected - skipping release creation"
+            exit 0
+          fi
+          
+          if [ "$CURR_VER" != "$PREV_VER" ]; then
             echo "changed=true" >> $GITHUB_OUTPUT
-            echo "Version changed from ${{ steps.previous_version.outputs.prev_version }} to ${{ steps.current_version.outputs.version }}"
+            echo "Version changed from $PREV_VER to $CURR_VER"
           else
             echo "changed=false" >> $GITHUB_OUTPUT
             echo "Version unchanged"
@@ -50,14 +60,22 @@ jobs:
         if: steps.version_check.outputs.changed == 'true'
         id: release_notes
         run: |
+          set -e  # Exit on error
+          
           # Get diff and filter out comment lines
-          git diff HEAD~1 HEAD -- no-comment.txt | grep -E "^[\+\-]" | grep -v "^[\+\-]!" | grep -v "^[\+\-][\+\-]" > changes.diff
+          git diff HEAD~1 HEAD -- no-comment.txt | grep -E "^[\+\-]" | grep -v "^[\+\-]!" | grep -v "^[\+\-][\+\-]" > changes.diff || true
           
-          # Extract added lines (new filters)
-          grep "^+" changes.diff | sed 's/^+//' > added.txt || touch added.txt
-          
-          # Extract removed lines
-          grep "^-" changes.diff | sed 's/^-//' > removed.txt || touch removed.txt
+          # Check if we have any changes
+          if [ ! -s changes.diff ]; then
+            echo "No filter changes detected, only metadata updated"
+            touch added.txt removed.txt
+          else
+            # Extract added lines (new filters)
+            grep "^+" changes.diff | sed 's/^+//' > added.txt || touch added.txt
+            
+            # Extract removed lines
+            grep "^-" changes.diff | sed 's/^-//' > removed.txt || touch removed.txt
+          fi
           
           # Create a Python script to analyze changes by domain
           cat > analyze.py << 'PYTHON'
@@ -163,11 +181,7 @@ jobs:
               echo "### New Filters" >> release_notes.md
               while IFS='|' read -r domain count; do
                   if [ -n "$domain" ]; then
-                      if [ "$count" = "1" ]; then
-                          echo "- **${domain}** (1 new filter)" >> release_notes.md
-                      else
-                          echo "- **${domain}** (${count} new filters)" >> release_notes.md
-                      fi
+                      echo "- **${domain}**" >> release_notes.md
                   fi
               done <<< "$NEW_SECTION"
               echo "" >> release_notes.md
@@ -179,11 +193,7 @@ jobs:
               echo "### Updated" >> release_notes.md
               while IFS='|' read -r domain count; do
                   if [ -n "$domain" ]; then
-                      if [ "$count" = "1" ]; then
-                          echo "- **${domain}** (1 filter updated)" >> release_notes.md
-                      else
-                          echo "- **${domain}** (${count} filters updated)" >> release_notes.md
-                      fi
+                      echo "- **${domain}**" >> release_notes.md
                   fi
               done <<< "$UPDATED_SECTION"
               echo "" >> release_notes.md
@@ -195,11 +205,7 @@ jobs:
               echo "### Removed" >> release_notes.md
               while IFS='|' read -r domain count; do
                   if [ -n "$domain" ]; then
-                      if [ "$count" = "1" ]; then
-                          echo "- **${domain}** (1 filter removed)" >> release_notes.md
-                      else
-                          echo "- **${domain}** (${count} filters removed)" >> release_notes.md
-                      fi
+                      echo "- **${domain}**" >> release_notes.md
                   fi
               done <<< "$REMOVED_SECTION"
               echo "" >> release_notes.md
