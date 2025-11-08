@@ -1,12 +1,11 @@
-! No-comment 
+! Title: No-comment
 ! A list of filters to block comments on various EN/FR websites
-! Last update: 2025.10.29
+! Homepage: https://github.com/ombremad/no-comment
+! Version: 21
 !
 ! By ombremad aka Anne Ferret
 ! Fedi: https://mangezdespomm.es/@ombremad
 ! Mail : anne@anneferret.eu
-!
-! License, contact, report issues, contribute: https://github.com/ombremad/no-comment
 !
 ! -----------------Comment hosting services-----------------!
 ||disqus.com
