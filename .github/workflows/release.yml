@@ -1,0 +1,231 @@
+name: Create Release on Version Update
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  check-version-and-release:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      
+      - name: Extract current version
+        id: current_version
+        run: |
+          VERSION=$(grep "^! Version:" no-comment.txt | sed 's/! Version: //')
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Current version: $VERSION"
+      
+      - name: Extract previous version
+        id: previous_version
+        run: |
+          git checkout HEAD~1 -- no-comment.txt 2>/dev/null || echo "No previous version"
+          if [ -f no-comment.txt ]; then
+            PREV_VERSION=$(grep "^! Version:" no-comment.txt | sed 's/! Version: //')
+            echo "prev_version=$PREV_VERSION" >> $GITHUB_OUTPUT
+            echo "Previous version: $PREV_VERSION"
+          else
+            echo "prev_version=0" >> $GITHUB_OUTPUT
+          fi
+          git checkout HEAD -- no-comment.txt
+      
+      - name: Check if version changed
+        id: version_check
+        run: |
+          if [ "${{ steps.current_version.outputs.version }}" != "${{ steps.previous_version.outputs.prev_version }}" ]; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "Version changed from ${{ steps.previous_version.outputs.prev_version }} to ${{ steps.current_version.outputs.version }}"
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "Version unchanged"
+          fi
+      
+      - name: Generate release notes
+        if: steps.version_check.outputs.changed == 'true'
+        id: release_notes
+        run: |
+          # Get diff and filter out comment lines
+          git diff HEAD~1 HEAD -- no-comment.txt | grep -E "^[\+\-]" | grep -v "^[\+\-]!" | grep -v "^[\+\-][\+\-]" > changes.diff
+          
+          # Extract added lines (new filters)
+          grep "^+" changes.diff | sed 's/^+//' > added.txt || touch added.txt
+          
+          # Extract removed lines
+          grep "^-" changes.diff | sed 's/^-//' > removed.txt || touch removed.txt
+          
+          # Create a Python script to analyze changes by domain
+          cat > analyze.py << 'PYTHON'
+          import re
+          from collections import defaultdict
+          
+          def extract_domain(line):
+              # Match patterns like: domain.com## or ||domain.com
+              match = re.search(r'(?:\|\||^)([a-zA-Z0-9.-]+\.(?:com|fr|net|org|eu|uk|co|tv))', line)
+              if match:
+                  return match.group(1)
+              return None
+          
+          def analyze_files():
+              added = defaultdict(int)
+              removed = defaultdict(int)
+              
+              # Read added filters
+              try:
+                  with open('added.txt', 'r') as f:
+                      for line in f:
+                          line = line.strip()
+                          if line:
+                              domain = extract_domain(line)
+                              if domain:
+                                  added[domain] += 1
+              except:
+                  pass
+              
+              # Read removed filters
+              try:
+                  with open('removed.txt', 'r') as f:
+                      for line in f:
+                          line = line.strip()
+                          if line:
+                              domain = extract_domain(line)
+                              if domain:
+                                  removed[domain] += 1
+              except:
+                  pass
+              
+              # Determine new, updated, and removed domains
+              all_domains = set(added.keys()) | set(removed.keys())
+              new_domains = []
+              updated_domains = []
+              removed_domains = []
+              
+              for domain in sorted(all_domains):
+                  added_count = added.get(domain, 0)
+                  removed_count = removed.get(domain, 0)
+                  
+                  if added_count > 0 and removed_count == 0:
+                      new_domains.append((domain, added_count))
+                  elif added_count > 0 and removed_count > 0:
+                      net_change = added_count - removed_count
+                      if net_change > 0:
+                          updated_domains.append((domain, added_count))
+                      elif net_change < 0:
+                          removed_domains.append((domain, removed_count))
+                      else:
+                          updated_domains.append((domain, added_count))
+                  elif removed_count > 0:
+                      removed_domains.append((domain, removed_count))
+              
+              return new_domains, updated_domains, removed_domains
+          
+          new, updated, removed = analyze_files()
+          
+          print("NEW_DOMAINS_START")
+          for domain, count in new:
+              print(f"{domain}|{count}")
+          print("NEW_DOMAINS_END")
+          
+          print("UPDATED_DOMAINS_START")
+          for domain, count in updated:
+              print(f"{domain}|{count}")
+          print("UPDATED_DOMAINS_END")
+          
+          print("REMOVED_DOMAINS_START")
+          for domain, count in removed:
+              print(f"{domain}|{count}")
+          print("REMOVED_DOMAINS_END")
+          PYTHON
+          
+          # Run analysis
+          python3 analyze.py > analysis.txt
+          
+          # Parse results
+          cat > build_notes.sh << 'BASH'
+          #!/bin/bash
+          
+          # Get commit SHA for diff link
+          COMMIT_SHA=$(git rev-parse HEAD)
+          PREV_SHA=$(git rev-parse HEAD~1)
+          REPO_URL=$(git config --get remote.origin.url | sed 's/\.git$//' | sed 's/git@github.com:/https:\/\/github.com\//')
+          
+          echo "## What's Changed" > release_notes.md
+          echo "" >> release_notes.md
+          
+          # Parse new domains
+          NEW_SECTION=$(sed -n '/NEW_DOMAINS_START/,/NEW_DOMAINS_END/p' analysis.txt | grep -v "DOMAINS")
+          if [ -n "$NEW_SECTION" ]; then
+              echo "### New Filters" >> release_notes.md
+              while IFS='|' read -r domain count; do
+                  if [ -n "$domain" ]; then
+                      if [ "$count" = "1" ]; then
+                          echo "- **${domain}** (1 new filter)" >> release_notes.md
+                      else
+                          echo "- **${domain}** (${count} new filters)" >> release_notes.md
+                      fi
+                  fi
+              done <<< "$NEW_SECTION"
+              echo "" >> release_notes.md
+          fi
+          
+          # Parse updated domains
+          UPDATED_SECTION=$(sed -n '/UPDATED_DOMAINS_START/,/UPDATED_DOMAINS_END/p' analysis.txt | grep -v "DOMAINS")
+          if [ -n "$UPDATED_SECTION" ]; then
+              echo "### Updated" >> release_notes.md
+              while IFS='|' read -r domain count; do
+                  if [ -n "$domain" ]; then
+                      if [ "$count" = "1" ]; then
+                          echo "- **${domain}** (1 filter updated)" >> release_notes.md
+                      else
+                          echo "- **${domain}** (${count} filters updated)" >> release_notes.md
+                      fi
+                  fi
+              done <<< "$UPDATED_SECTION"
+              echo "" >> release_notes.md
+          fi
+          
+          # Parse removed domains
+          REMOVED_SECTION=$(sed -n '/REMOVED_DOMAINS_START/,/REMOVED_DOMAINS_END/p' analysis.txt | grep -v "DOMAINS")
+          if [ -n "$REMOVED_SECTION" ]; then
+              echo "### Removed" >> release_notes.md
+              while IFS='|' read -r domain count; do
+                  if [ -n "$domain" ]; then
+                      if [ "$count" = "1" ]; then
+                          echo "- **${domain}** (1 filter removed)" >> release_notes.md
+                      else
+                          echo "- **${domain}** (${count} filters removed)" >> release_notes.md
+                      fi
+                  fi
+              done <<< "$REMOVED_SECTION"
+              echo "" >> release_notes.md
+          fi
+          
+          # Add full changelog link
+          echo "---" >> release_notes.md
+          echo "" >> release_notes.md
+          echo "**Full Changelog**: ${REPO_URL}/compare/${PREV_SHA}...${COMMIT_SHA}" >> release_notes.md
+          BASH
+          
+          chmod +x build_notes.sh
+          ./build_notes.sh
+          
+          echo "Release notes generated:"
+          cat release_notes.md
+      
+      - name: Create Release
+        if: steps.version_check.outputs.changed == 'true'
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ steps.current_version.outputs.version }}
+          name: "Version ${{ steps.current_version.outputs.version }}"
+          body_path: release_notes.md
+          files: no-comment.txt
+          draft: true
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
