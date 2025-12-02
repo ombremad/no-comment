@@ -1,7 +1,8 @@
 ! Title: No-comment
 ! A list of filters to block comments on various EN/FR websites
 ! Homepage: https://github.com/ombremad/no-comment
-! Version: 22
+! Licence: https://github.com/ombremad/no-comment/blob/main/LICENSE
+! Version: 23
 !
 ! By ombremad aka Anne Ferret
 ! Fedi: https://mangezdespomm.es/@ombremad
