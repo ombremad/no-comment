@@ -1,7 +1,8 @@
 ! Title: No-comment
 ! A list of filters to block comments on various EN/FR websites
 ! Homepage: https://github.com/ombremad/no-comment
-! Version: 22
+! Licence: https://github.com/ombremad/no-comment/blob/main/LICENSE
+! Version: 23
 !
 ! By ombremad aka Anne Ferret
 ! Fedi: https://mangezdespomm.es/@ombremad
@@ -58,10 +59,10 @@ boursorama.com## .c-comment--full
 charentelibre.fr## .comments
 citoyens.com## .commentaires
 closermag.fr## #respond, .media-list
-clubic.com## #comments
+clubic.com## #comments, div:has(> span > svg > path[d^="M20.833 2.08301H4.16634"])
 developpez.com## #comsActu, .directComActu
 ecranlarge.com## #votre-avis, a[href="#comments"]
-euronews.com## #vuukle-comments-2576730, .c-article-partage-commentaire__links__comments
+euronews.com## iframe[title="Vuukle Comments Widget"], a.c-article-partage-commentaire__links
 factornews.com## #factorCommunityWrapper, #factorSectionCommunityAsync
 football.fr## #comments, .comment-btn
 franceinfo.fr## .comments-embed, .comments-embed__button
@@ -71,12 +72,14 @@ generation-nt.com## .comments-zone, .new-comment-action
 i24news.tv## #article-comments, .jump-to-comments
 igen.fr,macg.co## .comments-block
 fr.ign.com## #disqus, .comments
+immobilier.lefigaro.fr## .agora-comments
 jeanmarcmorandini.com## #comments
 jeuxvideo.com## #bloc-commentaires
 journaldemontreal.com## .talk-wrapper
 journaldugeek.com## .spotim-light
 ladepeche.fr,midilibre.fr,lindependant.fr,centrepresseaveyron.fr## #commentaires, .article-full__footer
 lamontagne.fr## .shadow-card
+lanouvelletribune.info## .comments-area
 lapauseinfo.fr## .comments-area
 laprovence.com## .logoraContainer
 largus.fr## .form-comment
@@ -86,6 +89,7 @@ leparisien.fr## #comments-section, .lp-sidebar
 lepoint.fr## #commentaires
 lequipe.fr## #ReactionSummary
 lesnumeriques.com## .js-comments, .js-forum-nb-comments
+lyonne.fr## button.btn-primary:has-text(Commenter)
 mac4ever.com## #comment, .comment
 madmoizelle.com## #comments, .comment-count
 marsactu.fr## #comments, .comments
@@ -95,8 +99,9 @@ msn.com## #comments-count-button
 next.ink## #comments, .share-comment-action, .next-new-comment
 nicematin.com## #comments
 nouveautes-tele.com## #commentpost
+parisselectbook.com## #comments
 phonandroid.com## #comments, .comments
-presse-citron.net## .spotim-light
+presse-citron.net## div[data-spotim-module="conversation"], a.inline-flex[title="Commenter"]
 programme-tv.net## .newsArticle-comments
 reporterre.net## #zone_forum
 rtl.fr## .article-comments
