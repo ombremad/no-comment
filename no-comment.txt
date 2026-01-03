@@ -2,7 +2,7 @@
 ! A list of filters to block comments on various EN/FR websites
 ! Homepage: https://github.com/ombremad/no-comment
 ! Licence: https://github.com/ombremad/no-comment/blob/main/LICENSE
-! Version: 23
+! Version: 24
 !
 ! By ombremad aka Anne Ferret
 ! Fedi: https://mangezdespomm.es/@ombremad
@@ -17,6 +17,7 @@ youtube.com## #comment-teaser, #comments, #comments-button, #watch-while-engagem
 !
 ! -----------------------EN blocklist-----------------------!
 9to5google.com,9to5mac.com,connectthewatts.com,dronedj.com,electrek.co,spaceexplored.com## #comments, #single-comments-link, .meta__comment-count
+apnews.com## #ap-comments, .comment-icon-signedin, .Page-actions-commentCounter
 arstechnica.com## .comments-wrapper, .view-comments
 dailymail.co.uk## #reader-comments, #addCommentButton, .comments-count
 deadline.com## #comments, #comments-title
@@ -25,6 +26,7 @@ espn.com## .content-reactions_count-wrapper
 eurogamer.net,rockpapershotgun.com,vg247.com## .comments, .load-comments
 forbes.com## .openWeb-wrapper, .standard-commenting
 gameinformer.com## #comments
+gamerant.com,xda-developers.com## #footer-threads, a[href="#threads"]
 gamespot.com## .comments, .article-comments, .js-seamless-content__goto-comments
 gizmodo.com## .spotim-light
 www.ign.com## #comments-section
@@ -94,7 +96,7 @@ mac4ever.com## #comment, .comment
 madmoizelle.com## #comments, .comment-count
 marsactu.fr## #comments, .comments
 maville.com## #bloc_saisie_assiste, .link-donner-avis, .icon-bulle
-mediapart.fr## .content-comments
+mediapart.fr## .content-comments, a[href$="/commentaires"]
 msn.com## #comments-count-button
 next.ink## #comments, .share-comment-action, .next-new-comment
 nicematin.com## #comments
