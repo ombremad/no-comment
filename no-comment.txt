@@ -2,7 +2,7 @@
 ! A list of filters to block comments on various EN/FR websites
 ! Homepage: https://github.com/ombremad/no-comment
 ! Licence: https://github.com/ombremad/no-comment/blob/main/LICENSE
-! Version: 24
+! Version: 25
 !
 ! By ombremad aka Anne Ferret
 ! Fedi: https://mangezdespomm.es/@ombremad
@@ -17,8 +17,10 @@ youtube.com## #comment-teaser, #comments, #comments-button, #watch-while-engagem
 !
 ! -----------------------EN blocklist-----------------------!
 9to5google.com,9to5mac.com,connectthewatts.com,dronedj.com,electrek.co,spaceexplored.com## #comments, #single-comments-link, .meta__comment-count
+aol.com## #m-spotim-comments, .aol-caas-comment
 apnews.com## #ap-comments, .comment-icon-signedin, .Page-actions-commentCounter
 arstechnica.com## .comments-wrapper, .view-comments
+avclub.com## #show-comments, .comment-count-go-to
 dailymail.co.uk## #reader-comments, #addCommentButton, .comments-count
 deadline.com## #comments, #comments-title
 engadget.com## #module-spotIm, .caas-comment
@@ -41,10 +43,12 @@ polygon.com## #footer-threads, .thread-option, .total-info-number
 screenrant.com## #footer-threads, .disqus-load-btn, .w-display-card-extra
 techcrunch.com## #comments
 theguardian.com## #comments
+thepinknews.com## .article__content-sub-content, .pn-single-post-wrapper__comments
 theregister.com## #forums_page, .comment_count, .comment
 theverge.com## #comments-drawer, .duet--article--comments-link
 timesofisrael.com## .o-w-comments-wrap, .social-comments, .before-conversation
 variety.com## #comments-loaded, .o-comments-link
+vulture.com## #comments, .coral-talk, .comments-info-section
 wired.com## #comments, .CommentingMainContent
 !
 ! -----------------------FR blocklist-----------------------!
