@@ -5,6 +5,17 @@ on:
     branches:
       - main
 
+# Configuration variables
+env:
+  FILTER_FILE: no-comment.txt
+  VERSION_PREFIX: "! Version:"
+  RELEASE_NAME_PREFIX: "No-comment"
+  SECTION_TITLE_WHATS_CHANGED: "What's Changed"
+  SECTION_TITLE_NEW_FILTERS: "New Filters"
+  SECTION_TITLE_UPDATED: "Updated"
+  SECTION_TITLE_REMOVED: "Removed"
+  FOOTER_FULL_CHANGELOG_TEXT: "Full Changelog"
+
 jobs:
   check-version-and-release:
     runs-on: ubuntu-latest
@@ -18,22 +29,22 @@ jobs:
       - name: Extract current version
         id: current_version
         run: |
-          VERSION=$(grep "^! Version:" no-comment.txt | sed 's/! Version: //')
+          VERSION=$(grep "^${{ env.VERSION_PREFIX }}" ${{ env.FILTER_FILE }} | sed 's/${{ env.VERSION_PREFIX }} //')
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "Current version: $VERSION"
       
       - name: Extract previous version
         id: previous_version
         run: |
-          git checkout HEAD~1 -- no-comment.txt 2>/dev/null || echo "No previous version"
-          if [ -f no-comment.txt ]; then
-            PREV_VERSION=$(grep "^! Version:" no-comment.txt | sed 's/! Version: //')
+          git checkout HEAD~1 -- ${{ env.FILTER_FILE }} 2>/dev/null || echo "No previous version"
+          if [ -f ${{ env.FILTER_FILE }} ]; then
+            PREV_VERSION=$(grep "^${{ env.VERSION_PREFIX }}" ${{ env.FILTER_FILE }} | sed 's/${{ env.VERSION_PREFIX }} //')
             echo "prev_version=$PREV_VERSION" >> $GITHUB_OUTPUT
             echo "Previous version: $PREV_VERSION"
           else
             echo "prev_version=0" >> $GITHUB_OUTPUT
           fi
-          git checkout HEAD -- no-comment.txt
+          git checkout HEAD -- ${{ env.FILTER_FILE }}
       
       - name: Check if version changed
         id: version_check
@@ -63,7 +74,7 @@ jobs:
           set -e  # Exit on error
           
           # Get diff and filter out comment lines
-          git diff HEAD~1 HEAD -- no-comment.txt | grep -E "^[\+\-]" | grep -v "^[\+\-]!" | grep -v "^[\+\-][\+\-]" > changes.diff || true
+          git diff HEAD~1 HEAD -- ${{ env.FILTER_FILE }} | grep -E "^[\+\-]" | grep -v "^[\+\-]!" | grep -v "^[\+\-][\+\-]" > changes.diff || true
           
           # Check if we have any changes
           if [ ! -s changes.diff ]; then
@@ -82,12 +93,30 @@ jobs:
           import re
           from collections import defaultdict
           
-          def extract_domain(line):
-              # Match patterns like: domain.com## or ||domain.com
-              match = re.search(r'(?:\|\||^)([a-zA-Z0-9.-]+\.(?:com|fr|net|org|eu|uk|co|tv))', line)
-              if match:
-                  return match.group(1)
-              return None
+          def extract_domains(line):
+              """Extract all domains from a line, handling comma-separated lists"""
+              domains = []
+              
+              # Pattern 1: Comma-separated domains before ##
+              # Example: domain1.com,domain2.com,domain3.com## selector
+              comma_match = re.match(r'^([a-zA-Z0-9.,-]+)##', line)
+              if comma_match:
+                  domain_list = comma_match.group(1)
+                  # Split by comma and extract each domain
+                  for item in domain_list.split(','):
+                      item = item.strip()
+                      # Match domain pattern
+                      domain_match = re.search(r'([a-zA-Z0-9.-]+\.(?:com|fr|net|org|eu|uk|co|tv|io|de|ca|au|jp|cn|ru|br|in|mx|es|it|nl|se|no|dk|fi|ch|at|be|cz|pl|gr|pt|ie|nz|za|kr|tw|hk|sg|my|th|vn|id|ph))', item)
+                      if domain_match:
+                          domains.append(domain_match.group(1))
+              else:
+                  # Pattern 2: Single domain with || prefix
+                  # Example: ||domain.com^
+                  single_match = re.search(r'(?:\|\||^)([a-zA-Z0-9.-]+\.(?:com|fr|net|org|eu|uk|co|tv|io|de|ca|au|jp|cn|ru|br|in|mx|es|it|nl|se|no|dk|fi|ch|at|be|cz|pl|gr|pt|ie|nz|za|kr|tw|hk|sg|my|th|vn|id|ph))', line)
+                  if single_match:
+                      domains.append(single_match.group(1))
+              
+              return domains
           
           def analyze_files():
               added = defaultdict(int)
@@ -99,8 +128,8 @@ jobs:
                       for line in f:
                           line = line.strip()
                           if line:
-                              domain = extract_domain(line)
-                              if domain:
+                              domains = extract_domains(line)
+                              for domain in domains:
                                   added[domain] += 1
               except:
                   pass
@@ -111,8 +140,8 @@ jobs:
                       for line in f:
                           line = line.strip()
                           if line:
-                              domain = extract_domain(line)
-                              if domain:
+                              domains = extract_domains(line)
+                              for domain in domains:
                                   removed[domain] += 1
               except:
                   pass
@@ -163,22 +192,29 @@ jobs:
           # Run analysis
           python3 analyze.py > analysis.txt
           
-          # Parse results
+          # Parse results and build release notes
           cat > build_notes.sh << 'BASH'
           #!/bin/bash
+          
+          # Configuration
+          SECTION_WHATS_CHANGED="${{ env.SECTION_TITLE_WHATS_CHANGED }}"
+          SECTION_NEW_FILTERS="${{ env.SECTION_TITLE_NEW_FILTERS }}"
+          SECTION_UPDATED="${{ env.SECTION_TITLE_UPDATED }}"
+          SECTION_REMOVED="${{ env.SECTION_TITLE_REMOVED }}"
+          FOOTER_CHANGELOG="${{ env.FOOTER_FULL_CHANGELOG_TEXT }}"
           
           # Get commit SHA for diff link
           COMMIT_SHA=$(git rev-parse HEAD)
           PREV_SHA=$(git rev-parse HEAD~1)
           REPO_URL=$(git config --get remote.origin.url | sed 's/\.git$//' | sed 's/git@github.com:/https:\/\/github.com\//')
           
-          echo "## What's Changed" > release_notes.md
+          echo "## ${SECTION_WHATS_CHANGED}" > release_notes.md
           echo "" >> release_notes.md
           
           # Parse new domains
           NEW_SECTION=$(sed -n '/NEW_DOMAINS_START/,/NEW_DOMAINS_END/p' analysis.txt | grep -v "DOMAINS")
           if [ -n "$NEW_SECTION" ]; then
-              echo "### New Filters" >> release_notes.md
+              echo "### ${SECTION_NEW_FILTERS}" >> release_notes.md
               while IFS='|' read -r domain count; do
                   if [ -n "$domain" ]; then
                       echo "- **${domain}**" >> release_notes.md
@@ -190,7 +226,7 @@ jobs:
           # Parse updated domains
           UPDATED_SECTION=$(sed -n '/UPDATED_DOMAINS_START/,/UPDATED_DOMAINS_END/p' analysis.txt | grep -v "DOMAINS")
           if [ -n "$UPDATED_SECTION" ]; then
-              echo "### Updated" >> release_notes.md
+              echo "### ${SECTION_UPDATED}" >> release_notes.md
               while IFS='|' read -r domain count; do
                   if [ -n "$domain" ]; then
                       echo "- **${domain}**" >> release_notes.md
@@ -202,7 +238,7 @@ jobs:
           # Parse removed domains
           REMOVED_SECTION=$(sed -n '/REMOVED_DOMAINS_START/,/REMOVED_DOMAINS_END/p' analysis.txt | grep -v "DOMAINS")
           if [ -n "$REMOVED_SECTION" ]; then
-              echo "### Removed" >> release_notes.md
+              echo "### ${SECTION_REMOVED}" >> release_notes.md
               while IFS='|' read -r domain count; do
                   if [ -n "$domain" ]; then
                       echo "- **${domain}**" >> release_notes.md
@@ -214,7 +250,7 @@ jobs:
           # Add full changelog link
           echo "---" >> release_notes.md
           echo "" >> release_notes.md
-          echo "**Full Changelog**: ${REPO_URL}/compare/${PREV_SHA}...${COMMIT_SHA}" >> release_notes.md
+          echo "**${FOOTER_CHANGELOG}**: ${REPO_URL}/compare/${PREV_SHA}...${COMMIT_SHA}" >> release_notes.md
           BASH
           
           chmod +x build_notes.sh
@@ -228,9 +264,9 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: v${{ steps.current_version.outputs.version }}
-          name: "No-comment v${{ steps.current_version.outputs.version }}"
+          name: "${{ env.RELEASE_NAME_PREFIX }} v${{ steps.current_version.outputs.version }}"
           body_path: release_notes.md
-          files: no-comment.txt
+          files: ${{ env.FILTER_FILE }}
           draft: true
           prerelease: false
         env:
